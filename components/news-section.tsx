@@ -8,28 +8,28 @@ const newsArticles = [
     id: 1,
     title: "Khám phá Sân Cầu Lông D-Badminton Tân Phú chất lượng tại TP.HCM",
     excerpt: "Nếu bạn đang tìm kiếm một sân cầu lông tại TP.HCM vừa giá rẻ, vừa không gian rộng rãi, lại đảm bảo...",
-    image: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?w=400&h=300&fit=crop",
+    image: "/images/news/badminton-court.jpg",
     date: "28-03-2026"
   },
   {
     id: 2,
     title: "Review sân Maxping Pickleball tại Hà Nội và trải nghiệm thực tế",
     excerpt: "Tại khu vực Đống Đa có khá nhiều sân pickleball với những đặc điểm khác nhau về mặt sân và trải nghi...",
-    image: "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=400&h=300&fit=crop",
+    image: "/images/news/pickleball-court.jpg",
     date: "28-03-2026"
   },
   {
     id: 3,
     title: "Top 10 mẫu vợt pickleball trẻ em chất lượng hiện nay",
     excerpt: "Pickleball là môn thể thao đang ngày càng phổ biến trong cộng đồng trẻ em nhờ tính linh hoạt và dễ c...",
-    image: "https://images.unsplash.com/photo-1617083934555-ac7b4d0c8be9?w=400&h=300&fit=crop",
+    image: "/images/news/pickleball-kids.jpg",
     date: "09-02-2026"
   },
   {
     id: 4,
     title: "Hướng dẫn cách chọn vợt Pickleball Joola chi tiết nhất",
     excerpt: "Trong số các thương hiệu nổi bật, Joola là cái tên được nhiều vận động viên chuyên nghiệp lẫn người...",
-    image: "https://images.unsplash.com/photo-1558612896-dd8e780aa67e?w=400&h=300&fit=crop",
+    image: "/images/news/pickleball-guide.jpg",
     date: "09-02-2026"
   },
 ]

@@ -7,30 +7,30 @@ const categoryGroups = [
     title: "Sản phẩm Cầu Lông",
     color: "bg-emerald-600",
     items: [
-      { name: "Vợt Cầu Lông", image: "https://images.unsplash.com/photo-1617883861744-13b534e3b928?w=200&h=200&fit=crop" },
-      { name: "Giày Cầu Lông", image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&h=200&fit=crop" },
-      { name: "Áo Cầu Lông", image: "https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=200&h=200&fit=crop" },
-      { name: "Túi Vợt", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=200&h=200&fit=crop" },
+      { name: "Vợt Cầu Lông", image: "/images/products/badminton-racket-1.jpg" },
+      { name: "Giày Cầu Lông", image: "/images/products/badminton-shoes.jpg" },
+      { name: "Áo Cầu Lông", image: "/images/categories/badminton-shirt.jpg" },
+      { name: "Túi Vợt", image: "/images/categories/racket-bag.jpg" },
     ]
   },
   {
     title: "Sản phẩm Pickleball",
     color: "bg-orange-500",
     items: [
-      { name: "Vợt Pickleball", image: "https://images.unsplash.com/photo-1554068865-24cecd4e34b8?w=200&h=200&fit=crop" },
-      { name: "Giày Pickleball", image: "https://images.unsplash.com/photo-1608231387042-66d1773070a5?w=200&h=200&fit=crop" },
-      { name: "Áo Pickleball", image: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=200&h=200&fit=crop" },
-      { name: "Bóng Pickleball", image: "https://images.unsplash.com/photo-1558612896-dd8e780aa67e?w=200&h=200&fit=crop" },
+      { name: "Vợt Pickleball", image: "/images/products/pickleball-paddle.jpg" },
+      { name: "Giày Pickleball", image: "/images/products/pickleball-shoes.jpg" },
+      { name: "Áo Pickleball", image: "/images/categories/pickleball-shirt.jpg" },
+      { name: "Bóng Pickleball", image: "/images/categories/pickleball-balls.jpg" },
     ]
   },
   {
     title: "Sản phẩm Tennis",
     color: "bg-teal-600",
     items: [
-      { name: "Vợt Tennis", image: "https://images.unsplash.com/photo-1617083934555-ac7b4d0c8be9?w=200&h=200&fit=crop" },
-      { name: "Giày Tennis", image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=200&h=200&fit=crop" },
-      { name: "Áo Tennis", image: "https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=200&h=200&fit=crop" },
-      { name: "Balo Tennis", image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=200&h=200&fit=crop" },
+      { name: "Vợt Tennis", image: "/images/products/tennis-racket.jpg" },
+      { name: "Giày Tennis", image: "/images/categories/tennis-shoes.jpg" },
+      { name: "Áo Tennis", image: "/images/categories/tennis-shirt.jpg" },
+      { name: "Balo Tennis", image: "/images/categories/tennis-backpack.jpg" },
     ]
   },
 ]
