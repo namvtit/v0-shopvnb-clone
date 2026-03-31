@@ -69,11 +69,11 @@ export function Header() {
             <Link href="/" className="flex-shrink-0">
               <div className="flex items-center gap-2">
                 <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                  <span className="text-primary-foreground font-bold text-lg">VNB</span>
+                  <span className="text-primary-foreground font-bold text-lg">HT</span>
                 </div>
                 <div className="hidden sm:block">
-                  <span className="text-xl font-bold text-primary">Shop</span>
-                  <span className="text-xl font-bold text-secondary">VNB</span>
+                  <span className="text-xl font-bold text-primary">htqb</span>
+                  <span className="text-xl font-bold text-secondary">_shop</span>
                 </div>
               </div>
             </Link>

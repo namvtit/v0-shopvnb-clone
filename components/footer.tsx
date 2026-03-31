@@ -11,11 +11,11 @@ export function Footer() {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <div className="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
-                <span className="text-primary-foreground font-bold text-lg">VNB</span>
+                <span className="text-primary-foreground font-bold text-lg">HT</span>
               </div>
               <div>
-                <span className="text-xl font-bold text-primary">Shop</span>
-                <span className="text-xl font-bold text-secondary">VNB</span>
+                <span className="text-xl font-bold text-primary">htqb</span>
+                <span className="text-xl font-bold text-secondary">_shop</span>
               </div>
             </div>
             <p className="text-background/80 text-sm mb-4">
@@ -110,7 +110,7 @@ export function Footer() {
                 <Mail className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
                 <div>
                   <p className="font-medium">Email</p>
-                  <p className="text-background/80">support@shopvnb.com</p>
+                  <p className="text-background/80">support@htqbshop.com</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">
@@ -129,7 +129,7 @@ export function Footer() {
       <div className="border-t border-background/10">
         <div className="container mx-auto px-4 py-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-background/60">
-            <p>© 2026 ShopVNB. Tất cả quyền được bảo lưu.</p>
+            <p>© 2026 htqb_shop. Tất cả quyền được bảo lưu.</p>
             <div className="flex gap-4">
               <Link href="#" className="hover:text-primary transition-colors">
                 Điều khoản sử dụng

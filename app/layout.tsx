@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'ShopVNB - Hệ Thống Shop Cầu Lông, Tennis, Pickleball',
-  description: 'ShopVNB - Hệ thống cửa hàng bán vợt cầu lông, tennis, pickleball uy tín tại TPHCM và toàn quốc. Đảm bảo chất lượng, giao hàng toàn quốc.',
+  title: 'htqb_shop - Hệ Thống Shop Cầu Lông, Tennis, Pickleball',
+  description: 'htqb_shop - Hệ thống cửa hàng bán vợt cầu lông, tennis, pickleball uy tín tại TPHCM và toàn quốc. Đảm bảo chất lượng, giao hàng toàn quốc.',
   generator: 'v0.app',
   icons: {
     icon: [
