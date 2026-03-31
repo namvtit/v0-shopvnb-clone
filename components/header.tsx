@@ -31,7 +31,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50">
       {/* Top bar */}
-      <div className="bg-primary text-primary-foreground">
+      {/* <div className="bg-primary text-primary-foreground">
         <div className="container mx-auto px-4 py-2 flex items-center justify-between text-sm">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1.5">
@@ -49,7 +49,7 @@ export function Header() {
             <Link href="#" className="hover:underline">Đăng nhập</Link>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main header */}
       <div className="bg-card border-b border-border">
