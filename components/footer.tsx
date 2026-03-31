@@ -14,8 +14,8 @@ export function Footer() {
                 <span className="text-primary-foreground font-bold text-lg">HT</span>
               </div>
               <div>
-                <span className="text-xl font-bold text-primary">htqb</span>
-                <span className="text-xl font-bold text-secondary">_shop</span>
+                <span className="text-xl font-bold text-primary">HTQB</span>
+                <span className="text-xl font-bold text-secondary">_SHOP</span>
               </div>
             </div>
             <p className="text-background/80 text-sm mb-4">
@@ -129,7 +129,7 @@ export function Footer() {
       <div className="border-t border-background/10">
         <div className="container mx-auto px-4 py-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-background/60">
-            <p>© 2026 htqb_shop. Tất cả quyền được bảo lưu.</p>
+            <p>© 2026 HTQB_SHOP. Tất cả quyền được bảo lưu.</p>
             <div className="flex gap-4">
               <Link href="#" className="hover:text-primary transition-colors">
                 Điều khoản sử dụng

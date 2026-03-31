@@ -14,6 +14,7 @@ interface ProductCardProps {
 }
 
 export function ProductCard({
+  id,
   name,
   price,
   originalPrice,
@@ -27,7 +28,7 @@ export function ProductCard({
   }
 
   return (
-    <Link href="#" className="group block">
+    <Link href={`/san-pham/${id}`} className="group block">
       <div className="bg-card rounded-lg border border-border overflow-hidden transition-shadow hover:shadow-lg">
         {/* Image */}
         <div className="relative aspect-square bg-muted overflow-hidden">

@@ -4,99 +4,13 @@ import { useState } from "react"
 import { ProductCard } from "@/components/product-card"
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
+import { products } from "@/lib/products"
 
 const tabs = [
   { id: "all", name: "Tất cả" },
   { id: "badminton", name: "Cầu Lông" },
   { id: "pickleball", name: "Pickleball" },
   { id: "tennis", name: "Tennis" },
-]
-
-const products = [
-  {
-    id: 1,
-    name: "Vợt Cầu Lông Yonex Astrox 99 Pro",
-    price: 4500000,
-    originalPrice: 5200000,
-    image: "/images/products/badminton-racket-1.jpg",
-    brand: "Yonex",
-    isNew: true,
-    discount: 13,
-    category: "badminton"
-  },
-  {
-    id: 2,
-    name: "Vợt Cầu Lông Victor Thruster Ryuga II Pro",
-    price: 3850000,
-    originalPrice: 4200000,
-    image: "/images/products/badminton-racket-2.jpg",
-    brand: "Victor",
-    isNew: true,
-    discount: 8,
-    category: "badminton"
-  },
-  {
-    id: 3,
-    name: "Vợt Pickleball Joola Ben Johns Hyperion CFS 16",
-    price: 6200000,
-    originalPrice: 7000000,
-    image: "/images/products/pickleball-paddle.jpg",
-    brand: "Joola",
-    isNew: true,
-    discount: 11,
-    category: "pickleball"
-  },
-  {
-    id: 4,
-    name: "Giày Cầu Lông Yonex 65Z3",
-    price: 2950000,
-    originalPrice: 3400000,
-    image: "/images/products/badminton-shoes.jpg",
-    brand: "Yonex",
-    discount: 13,
-    category: "badminton"
-  },
-  {
-    id: 5,
-    name: "Vợt Tennis Wilson Pro Staff RF97",
-    price: 8500000,
-    originalPrice: 9500000,
-    image: "/images/products/tennis-racket.jpg",
-    brand: "Wilson",
-    isNew: true,
-    discount: 10,
-    category: "tennis"
-  },
-  {
-    id: 6,
-    name: "Giày Pickleball ASICS Gel-Renma",
-    price: 2400000,
-    originalPrice: 2800000,
-    image: "/images/products/pickleball-shoes.jpg",
-    brand: "ASICS",
-    discount: 14,
-    category: "pickleball"
-  },
-  {
-    id: 7,
-    name: "Vợt Cầu Lông Lining Axforce 100",
-    price: 3200000,
-    originalPrice: 3800000,
-    image: "/images/products/badminton-racket-3.jpg",
-    brand: "Lining",
-    discount: 16,
-    category: "badminton"
-  },
-  {
-    id: 8,
-    name: "Túi Vợt Tennis Babolat Pure Aero",
-    price: 1850000,
-    originalPrice: 2200000,
-    image: "/images/products/tennis-bag.jpg",
-    brand: "Babolat",
-    discount: 16,
-    category: "tennis"
-  },
 ]
 
 export function ProductsSection() {

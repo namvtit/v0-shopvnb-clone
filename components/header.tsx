@@ -72,8 +72,8 @@ export function Header() {
                   <span className="text-primary-foreground font-bold text-lg">HT</span>
                 </div>
                 <div className="hidden sm:block">
-                  <span className="text-xl font-bold text-primary">htqb</span>
-                  <span className="text-xl font-bold text-secondary">_shop</span>
+                  <span className="text-xl font-bold text-primary">HTQB</span>
+                  <span className="text-xl font-bold text-secondary">_SHOP</span>
                 </div>
               </div>
             </Link>
