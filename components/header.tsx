@@ -74,7 +74,7 @@ export function Header() {
 
             </div>
             <div className="flex items-center gap-4">
-              <Link href="#" className="hover:underline">Tra cứu đơn hàng</Link>
+              <Link href="/tra-cuu-don-hang" className="hover:underline">Tra cứu đơn hàng</Link>
               <Link href="/wishlist" className="hover:underline hidden sm:block">Yêu thích</Link>
               <Link href="/dang-nhap" className="hover:underline">Đăng nhập</Link>
             </div>
@@ -233,12 +233,12 @@ export function Header() {
                 </Link>
               </li>
               <li>
-                <Link href="#" className="px-4 py-3 font-medium hover:text-primary transition-colors block">
+                <Link href="/tin-tuc" className="px-4 py-3 font-medium hover:text-primary transition-colors block">
                   Tin Tức
                 </Link>
               </li>
               <li>
-                <Link href="#" className="px-4 py-3 font-medium hover:text-primary transition-colors block">
+                <Link href="/he-thong-cua-hang" className="px-4 py-3 font-medium hover:text-primary transition-colors block">
                   Hệ Thống Cửa Hàng
                 </Link>
               </li>
@@ -281,10 +281,10 @@ export function Header() {
                   <Link href="/san-pham?sale=true" className="block py-2 font-medium text-secondary" onClick={() => setMobileMenuOpen(false)}>Sale Off</Link>
                 </li>
                 <li>
-                  <Link href="#" className="block py-2 font-medium hover:text-primary">Tin Tức</Link>
+                  <Link href="/tin-tuc" className="block py-2 font-medium hover:text-primary" onClick={() => setMobileMenuOpen(false)}>Tin Tức</Link>
                 </li>
                 <li>
-                  <Link href="#" className="block py-2 font-medium hover:text-primary">Hệ Thống Cửa Hàng</Link>
+                  <Link href="/he-thong-cua-hang" className="block py-2 font-medium hover:text-primary" onClick={() => setMobileMenuOpen(false)}>Hệ Thống Cửa Hàng</Link>
                 </li>
               </ul>
             </div>
