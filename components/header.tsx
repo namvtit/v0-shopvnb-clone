@@ -41,9 +41,9 @@ export function Header() {
 
   const searchResults = searchQuery.length > 1
     ? products.filter(p =>
-        p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.brand.toLowerCase().includes(searchQuery.toLowerCase())
-      ).slice(0, 5)
+      p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      p.brand.toLowerCase().includes(searchQuery.toLowerCase())
+    ).slice(0, 5)
     : []
 
   // Close search dropdown on outside click
@@ -71,10 +71,7 @@ export function Header() {
                 <Phone className="h-4 w-4" />
                 <span>Hotline: 1900 636 636</span>
               </div>
-              <div className="hidden md:flex items-center gap-1.5">
-                <MapPin className="h-4 w-4" />
-                <span>Hệ thống 50+ cửa hàng toàn quốc</span>
-              </div>
+
             </div>
             <div className="flex items-center gap-4">
               <Link href="#" className="hover:underline">Tra cứu đơn hàng</Link>
