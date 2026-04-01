@@ -35,6 +35,7 @@ export default function CheckoutPage() {
   const [step, setStep] = useState<Step>("info")
   const [selectedShipping, setSelectedShipping] = useState("standard")
   const [selectedPayment, setSelectedPayment] = useState("cod")
+  const [orderNum] = useState(() => Math.floor(Math.random() * 90000) + 10000)
   const [form, setForm] = useState({
     name: "",
     phone: "",
@@ -66,7 +67,7 @@ export default function CheckoutPage() {
   const handleSubmitOrder = () => {
     setStep("success")
     clearCart()
-    toast.success("Dat hang thanh cong!")
+    toast.success("Đặt hàng thành công!")
   }
 
   if (items.length === 0 && step !== "success") {
@@ -75,10 +76,10 @@ export default function CheckoutPage() {
         <Header />
         <main className="flex-1 flex flex-col items-center justify-center gap-4 py-20">
           <Package className="h-20 w-20 text-muted-foreground" />
-          <h2 className="text-xl font-semibold">Gio hang cua ban dang trong</h2>
-          <p className="text-muted-foreground">Hay them san pham truoc khi thanh toan</p>
+          <h2 className="text-xl font-semibold">Giỏ hàng của bạn đang trống</h2>
+          <p className="text-muted-foreground">Hãy thêm sản phẩm trước khi thanh toán</p>
           <Button asChild>
-            <Link href="/san-pham">Mua sam ngay</Link>
+            <Link href="/san-pham">Mua sắm ngay</Link>
           </Button>
         </main>
         <Footer />
@@ -87,7 +88,6 @@ export default function CheckoutPage() {
   }
 
   if (step === "success") {
-    const orderNum = Math.floor(Math.random() * 90000) + 10000
     return (
       <div className="min-h-screen flex flex-col bg-background">
         <Header />
@@ -96,36 +96,36 @@ export default function CheckoutPage() {
             <CheckCircle className="h-14 w-14 text-primary" />
           </div>
           <div className="text-center">
-            <h2 className="text-2xl font-bold mb-2">Dat hang thanh cong!</h2>
+            <h2 className="text-2xl font-bold mb-2">Đặt hàng thành công!</h2>
             <p className="text-muted-foreground">
-              Cam on ban da mua hang. Chung toi se lien he xac nhan don hang som nhat.
+              Cảm ơn bạn đã mua hàng. Chúng tôi sẽ liên hệ xác nhận đơn hàng sớm nhất.
             </p>
           </div>
           <div className="bg-card border border-border rounded-xl p-6 w-full max-w-sm text-sm space-y-2">
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Ma don hang</span>
+              <span className="text-muted-foreground">Mã đơn hàng</span>
               <span className="font-bold">#HTQ{orderNum}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Nguoi nhan</span>
-              <span className="font-medium">{form.name || "Khach hang"}</span>
+              <span className="text-muted-foreground">Người nhận</span>
+              <span className="font-medium">{form.name || "Khách hàng"}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-muted-foreground">Phuong thuc</span>
+              <span className="text-muted-foreground">Phương thức</span>
               <span>{paymentMethods.find(p => p.id === selectedPayment)?.name}</span>
             </div>
             <Separator />
             <div className="flex justify-between font-bold text-primary">
-              <span>Tong tien</span>
+              <span>Tổng tiền</span>
               <span>{formatPrice(total)}</span>
             </div>
           </div>
           <div className="flex gap-4">
             <Button variant="outline" asChild>
-              <Link href="/">Ve trang chu</Link>
+              <Link href="/">Về trang chủ</Link>
             </Button>
             <Button asChild>
-              <Link href="/san-pham">Tiep tuc mua sam</Link>
+              <Link href="/san-pham">Tiếp tục mua sắm</Link>
             </Button>
           </div>
         </main>
@@ -135,9 +135,9 @@ export default function CheckoutPage() {
   }
 
   const steps = [
-    { id: "info", label: "Thong tin" },
-    { id: "shipping", label: "Van chuyen" },
-    { id: "payment", label: "Thanh toan" },
+    { id: "info", label: "Thông tin" },
+    { id: "shipping", label: "Vận chuyển" },
+    { id: "payment", label: "Thanh toán" },
   ]
   const currentStepIdx = steps.findIndex(s => s.id === step)
 
@@ -149,9 +149,9 @@ export default function CheckoutPage() {
         <div className="container mx-auto px-4">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-            <Link href="/" className="hover:text-primary">Trang chu</Link>
+            <Link href="/" className="hover:text-primary">Trang chủ</Link>
             <ChevronRight className="h-4 w-4" />
-            <span className="text-foreground">Thanh toan</span>
+            <span className="text-foreground">Thanh toán</span>
           </nav>
 
           {/* Steps */}
@@ -180,27 +180,28 @@ export default function CheckoutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Left - Form */}
             <div className="lg:col-span-2">
+
               {/* Step 1 - Info */}
               {step === "info" && (
                 <form onSubmit={handleSubmitInfo} className="space-y-6">
                   <div className="bg-card border border-border rounded-xl p-6 space-y-4">
                     <h2 className="text-lg font-bold flex items-center gap-2">
                       <MapPin className="h-5 w-5 text-primary" />
-                      Thong tin giao hang
+                      Thông tin giao hàng
                     </h2>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="name">Ho va ten *</Label>
+                        <Label htmlFor="name">Họ và tên *</Label>
                         <Input
                           id="name"
-                          placeholder="Nguyen Van A"
+                          placeholder="Nguyễn Văn A"
                           className="mt-1"
                           value={form.name}
                           onChange={e => handleField("name", e.target.value)}
                         />
                       </div>
                       <div>
-                        <Label htmlFor="phone">So dien thoai *</Label>
+                        <Label htmlFor="phone">Số điện thoại *</Label>
                         <Input
                           id="phone"
                           placeholder="0912 345 678"
@@ -221,30 +222,30 @@ export default function CheckoutPage() {
                         />
                       </div>
                       <div className="sm:col-span-2">
-                        <Label htmlFor="address">Dia chi *</Label>
+                        <Label htmlFor="address">Địa chỉ *</Label>
                         <Input
                           id="address"
-                          placeholder="So nha, duong, phuong/xa"
+                          placeholder="Số nhà, đường, phường/xã"
                           className="mt-1"
                           value={form.address}
                           onChange={e => handleField("address", e.target.value)}
                         />
                       </div>
                       <div className="sm:col-span-2">
-                        <Label htmlFor="city">Tinh / Thanh pho *</Label>
+                        <Label htmlFor="city">Tỉnh / Thành phố *</Label>
                         <Input
                           id="city"
-                          placeholder="TP. Ho Chi Minh"
+                          placeholder="TP. Hồ Chí Minh"
                           className="mt-1"
                           value={form.city}
                           onChange={e => handleField("city", e.target.value)}
                         />
                       </div>
                       <div className="sm:col-span-2">
-                        <Label htmlFor="note">Ghi chu don hang</Label>
+                        <Label htmlFor="note">Ghi chú đơn hàng</Label>
                         <Textarea
                           id="note"
-                          placeholder="Ghi chu cho nguoi giao hang..."
+                          placeholder="Ghi chú cho người giao hàng..."
                           className="mt-1"
                           rows={3}
                           value={form.note}
@@ -254,7 +255,7 @@ export default function CheckoutPage() {
                     </div>
                   </div>
                   <Button type="submit" size="lg" className="w-full gap-2">
-                    Tiep tuc <ChevronRight className="h-4 w-4" />
+                    Tiếp tục <ChevronRight className="h-4 w-4" />
                   </Button>
                 </form>
               )}
@@ -265,7 +266,7 @@ export default function CheckoutPage() {
                   <div className="bg-card border border-border rounded-xl p-6 space-y-4">
                     <h2 className="text-lg font-bold flex items-center gap-2">
                       <Truck className="h-5 w-5 text-primary" />
-                      Phuong thuc van chuyen
+                      Phương thức vận chuyển
                     </h2>
                     <RadioGroup value={selectedShipping} onValueChange={setSelectedShipping} className="space-y-3">
                       {shippingMethods.map(method => (
@@ -290,17 +291,17 @@ export default function CheckoutPage() {
                   </div>
 
                   <div className="bg-muted/40 border border-border rounded-xl p-4 text-sm space-y-1">
-                    <p className="font-medium text-muted-foreground uppercase text-xs tracking-wide mb-2">Giao den</p>
+                    <p className="font-medium text-muted-foreground uppercase text-xs tracking-wide mb-2">Giao đến</p>
                     <p className="font-semibold">{form.name} &mdash; {form.phone}</p>
                     <p className="text-muted-foreground">{form.address}, {form.city}</p>
                   </div>
 
                   <div className="flex gap-3">
                     <Button variant="outline" onClick={() => setStep("info")} className="flex-1">
-                      Quay lai
+                      Quay lại
                     </Button>
                     <Button onClick={() => setStep("payment")} className="flex-1 gap-2" size="lg">
-                      Tiep tuc <ChevronRight className="h-4 w-4" />
+                      Tiếp tục <ChevronRight className="h-4 w-4" />
                     </Button>
                   </div>
                 </div>
@@ -312,7 +313,7 @@ export default function CheckoutPage() {
                   <div className="bg-card border border-border rounded-xl p-6 space-y-4">
                     <h2 className="text-lg font-bold flex items-center gap-2">
                       <CreditCard className="h-5 w-5 text-primary" />
-                      Phuong thuc thanh toan
+                      Phương thức thanh toán
                     </h2>
                     <RadioGroup value={selectedPayment} onValueChange={setSelectedPayment} className="space-y-3">
                       {paymentMethods.map(method => {
@@ -338,10 +339,10 @@ export default function CheckoutPage() {
 
                   <div className="flex gap-3">
                     <Button variant="outline" onClick={() => setStep("shipping")} className="flex-1">
-                      Quay lai
+                      Quay lại
                     </Button>
                     <Button onClick={handleSubmitOrder} className="flex-1" size="lg">
-                      Xac nhan dat hang
+                      Xác nhận đặt hàng
                     </Button>
                   </div>
                 </div>
@@ -351,7 +352,7 @@ export default function CheckoutPage() {
             {/* Right - Order Summary */}
             <div>
               <div className="bg-card border border-border rounded-xl p-6 sticky top-24">
-                <h2 className="text-lg font-bold mb-4">Don hang cua ban</h2>
+                <h2 className="text-lg font-bold mb-4">Đơn hàng của bạn</h2>
                 <div className="space-y-4 max-h-72 overflow-y-auto">
                   {items.map(({ product, quantity }) => (
                     <div key={product.id} className="flex gap-3">
@@ -375,16 +376,16 @@ export default function CheckoutPage() {
 
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Tam tinh</span>
+                    <span className="text-muted-foreground">Tạm tính</span>
                     <span>{formatPrice(totalPrice)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Phi van chuyen</span>
+                    <span className="text-muted-foreground">Phí vận chuyển</span>
                     <span>{formatPrice(shippingFee)}</span>
                   </div>
                   <Separator />
                   <div className="flex justify-between font-bold text-base">
-                    <span>Tong cong</span>
+                    <span>Tổng cộng</span>
                     <span className="text-primary">{formatPrice(total)}</span>
                   </div>
                 </div>

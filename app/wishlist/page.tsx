@@ -19,16 +19,16 @@ export default function WishlistPage() {
         <div className="container mx-auto px-4">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-            <Link href="/" className="hover:text-primary">Trang chu</Link>
+            <Link href="/" className="hover:text-primary">Trang chủ</Link>
             <ChevronRight className="h-4 w-4" />
-            <span className="text-foreground">Danh sach yeu thich</span>
+            <span className="text-foreground">Danh sách yêu thích</span>
           </nav>
 
           <div className="flex items-center gap-3 mb-8">
             <Heart className="h-8 w-8 text-primary" />
             <div>
-              <h1 className="text-2xl lg:text-3xl font-bold">Danh sach yeu thich</h1>
-              <p className="text-muted-foreground text-sm">{items.length} san pham</p>
+              <h1 className="text-2xl lg:text-3xl font-bold">Danh sách yêu thích</h1>
+              <p className="text-muted-foreground text-sm">{items.length} sản phẩm</p>
             </div>
           </div>
 
@@ -37,12 +37,12 @@ export default function WishlistPage() {
               <div className="w-24 h-24 rounded-full bg-muted mx-auto flex items-center justify-center mb-4">
                 <Heart className="h-12 w-12 text-muted-foreground" />
               </div>
-              <h2 className="text-xl font-semibold mb-2">Danh sach yeu thich trong</h2>
+              <h2 className="text-xl font-semibold mb-2">Danh sách yêu thích trống</h2>
               <p className="text-muted-foreground mb-6">
-                Hay them san pham yeu thich de xem lai sau
+                Hãy thêm sản phẩm yêu thích để xem lại sau
               </p>
               <Button asChild>
-                <Link href="/san-pham">Kham pha san pham</Link>
+                <Link href="/san-pham">Khám phá sản phẩm</Link>
               </Button>
             </div>
           ) : (
