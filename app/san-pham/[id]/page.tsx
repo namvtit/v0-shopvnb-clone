@@ -11,18 +11,26 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { ProductCard } from "@/components/product-card"
 import { getProductById, getRelatedProducts } from "@/lib/products"
+import { useCart } from "@/lib/cart-context"
+import { useWishlist } from "@/lib/wishlist-context"
+import { toast } from "sonner"
+import { cn } from "@/lib/utils"
 
 export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
   const product = getProductById(parseInt(id))
-  
+
   const [selectedImage, setSelectedImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
+
+  const { addItem, setCartOpen } = useCart()
+  const { toggleItem, isWishlisted } = useWishlist()
 
   if (!product) {
     notFound()
   }
 
+  const wishlisted = isWishlisted(product.id)
   const relatedProducts = getRelatedProducts(product, 4)
 
   const formatPrice = (p: number) => {
@@ -33,19 +41,50 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
     setQuantity(prev => Math.max(1, prev + delta))
   }
 
+  const handleAddToCart = () => {
+    addItem(product, quantity)
+    toast.success(`Da them ${quantity} san pham vao gio hang`, {
+      description: product.name,
+      action: {
+        label: "Xem gio",
+        onClick: () => setCartOpen(true),
+      },
+    })
+  }
+
+  const handleWishlist = () => {
+    toggleItem(product)
+    if (!wishlisted) {
+      toast.success("Da them vao danh sach yeu thich")
+    } else {
+      toast.info("Da xoa khoi danh sach yeu thich")
+    }
+  }
+
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href)
+      toast.success("Da sao chep duong dan")
+    } catch {
+      toast.info("Chia se lien ket san pham")
+    }
+  }
+
   const images = product.images || [product.image]
 
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       <main className="py-6">
         <div className="container mx-auto px-4">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
-            <Link href="/" className="hover:text-primary">Trang chủ</Link>
+            <Link href="/" className="hover:text-primary">Trang chu</Link>
             <ChevronRight className="h-4 w-4" />
-            <Link href="/" className="hover:text-primary capitalize">{product.category}</Link>
+            <Link href={`/san-pham?category=${product.category}`} className="hover:text-primary capitalize">
+              {product.category === "badminton" ? "Cau Long" : product.category === "pickleball" ? "Pickleball" : "Tennis"}
+            </Link>
             <ChevronRight className="h-4 w-4" />
             <span className="text-foreground line-clamp-1">{product.name}</span>
           </nav>
@@ -63,7 +102,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                   priority
                 />
                 {product.isNew && (
-                  <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground">Mới</Badge>
+                  <Badge className="absolute top-4 left-4 bg-primary text-primary-foreground">Moi</Badge>
                 )}
                 {product.discount && product.discount > 0 && (
                   <Badge className="absolute top-4 right-4 bg-secondary text-secondary-foreground">
@@ -108,6 +147,9 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                     {formatPrice(product.originalPrice)}
                   </span>
                 )}
+                {product.discount && product.discount > 0 && (
+                  <Badge className="bg-secondary text-secondary-foreground">Tiet kiem {formatPrice((product.originalPrice || 0) - product.price)}</Badge>
+                )}
               </div>
 
               {/* Description */}
@@ -135,21 +177,25 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                     <Plus className="h-4 w-4" />
                   </Button>
                 </div>
-                <Button className="flex-1 gap-2" size="lg">
+                <Button className="flex-1 gap-2" size="lg" onClick={handleAddToCart}>
                   <ShoppingCart className="h-5 w-5" />
-                  Thêm vào giỏ hàng
+                  Them vao gio hang
                 </Button>
               </div>
 
-              {/* Actions */}
+              {/* Secondary Actions */}
               <div className="flex gap-4">
-                <Button variant="outline" className="gap-2">
-                  <Heart className="h-5 w-5" />
-                  Yêu thích
+                <Button
+                  variant="outline"
+                  className={cn("gap-2", wishlisted && "border-secondary text-secondary")}
+                  onClick={handleWishlist}
+                >
+                  <Heart className={cn("h-5 w-5", wishlisted && "fill-current text-secondary")} />
+                  {wishlisted ? "Da yeu thich" : "Yeu thich"}
                 </Button>
-                <Button variant="outline" className="gap-2">
+                <Button variant="outline" className="gap-2" onClick={handleShare}>
                   <Share2 className="h-5 w-5" />
-                  Chia sẻ
+                  Chia se
                 </Button>
               </div>
 
@@ -159,25 +205,25 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                     <Check className="h-4 w-4 text-primary" />
                   </div>
-                  <span>Cam kết chính hãng 100%</span>
+                  <span>Cam ket chinh hang 100%</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                     <Truck className="h-4 w-4 text-primary" />
                   </div>
-                  <span>Giao hàng toàn quốc</span>
+                  <span>Giao hang toan quoc</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                     <Shield className="h-4 w-4 text-primary" />
                   </div>
-                  <span>Bảo hành chính hãng</span>
+                  <span>Bao hanh chinh hang</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm">
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
                     <RotateCcw className="h-4 w-4 text-primary" />
                   </div>
-                  <span>Đổi trả trong 7 ngày</span>
+                  <span>Doi tra trong 7 ngay</span>
                 </div>
               </div>
             </div>
@@ -186,7 +232,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
           {/* Specifications */}
           {product.specs && product.specs.length > 0 && (
             <div className="mb-12">
-              <h2 className="text-xl font-bold mb-4">Thông số kỹ thuật</h2>
+              <h2 className="text-xl font-bold mb-4">Thong so ky thuat</h2>
               <div className="bg-card border border-border rounded-lg overflow-hidden">
                 <table className="w-full">
                   <tbody>
@@ -205,7 +251,7 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
           {/* Related Products */}
           {relatedProducts.length > 0 && (
             <div>
-              <h2 className="text-xl font-bold mb-6">Sản phẩm liên quan</h2>
+              <h2 className="text-xl font-bold mb-6">San pham lien quan</h2>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
                 {relatedProducts.map((p) => (
                   <ProductCard key={p.id} {...p} />
