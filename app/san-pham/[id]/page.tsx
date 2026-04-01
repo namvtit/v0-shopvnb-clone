@@ -11,26 +11,68 @@ import { Header } from "@/components/header"
 import { Footer } from "@/components/footer"
 import { ProductCard } from "@/components/product-card"
 import { getProductById, getRelatedProducts } from "@/lib/products"
+import { useCart } from "@/lib/cart-context"
+import { useWishlist } from "@/lib/wishlist-context"
+import { toast } from "sonner"
+import { cn } from "@/lib/utils"
+
+const categoryLabels: Record<string, string> = {
+  badminton: "Cầu Lông",
+  pickleball: "Pickleball",
+  tennis: "Tennis",
+}
 
 export default function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
   const product = getProductById(parseInt(id))
-  
+
   const [selectedImage, setSelectedImage] = useState(0)
   const [quantity, setQuantity] = useState(1)
+
+  const { addItem, setCartOpen } = useCart()
+  const { toggleItem, isWishlisted } = useWishlist()
 
   if (!product) {
     notFound()
   }
 
+  const wishlisted = isWishlisted(product.id)
   const relatedProducts = getRelatedProducts(product, 4)
 
-  const formatPrice = (p: number) => {
-    return new Intl.NumberFormat("vi-VN").format(p) + "đ"
-  }
+  const formatPrice = (p: number) =>
+    new Intl.NumberFormat("vi-VN").format(p) + "đ"
 
   const handleQuantityChange = (delta: number) => {
     setQuantity(prev => Math.max(1, prev + delta))
+  }
+
+  const handleAddToCart = () => {
+    addItem(product, quantity)
+    toast.success(`Đã thêm ${quantity} sản phẩm vào giỏ hàng`, {
+      description: product.name,
+      action: {
+        label: "Xem giỏ",
+        onClick: () => setCartOpen(true),
+      },
+    })
+  }
+
+  const handleWishlist = () => {
+    toggleItem(product)
+    if (!wishlisted) {
+      toast.success("Đã thêm vào danh sách yêu thích")
+    } else {
+      toast.info("Đã xóa khỏi danh sách yêu thích")
+    }
+  }
+
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href)
+      toast.success("Đã sao chép đường dẫn")
+    } catch {
+      toast.info("Chia sẻ liên kết sản phẩm")
+    }
   }
 
   const images = product.images || [product.image]
@@ -38,14 +80,16 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      
+
       <main className="py-6">
         <div className="container mx-auto px-4">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-2 text-sm text-muted-foreground mb-6">
             <Link href="/" className="hover:text-primary">Trang chủ</Link>
             <ChevronRight className="h-4 w-4" />
-            <Link href="/" className="hover:text-primary capitalize">{product.category}</Link>
+            <Link href={`/san-pham?category=${product.category}`} className="hover:text-primary">
+              {categoryLabels[product.category] ?? product.category}
+            </Link>
             <ChevronRight className="h-4 w-4" />
             <span className="text-foreground line-clamp-1">{product.name}</span>
           </nav>
@@ -101,12 +145,17 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
               </div>
 
               {/* Price */}
-              <div className="flex items-baseline gap-3">
+              <div className="flex items-baseline gap-3 flex-wrap">
                 <span className="text-3xl font-bold text-primary">{formatPrice(product.price)}</span>
                 {product.originalPrice && product.originalPrice > product.price && (
                   <span className="text-xl text-muted-foreground line-through">
                     {formatPrice(product.originalPrice)}
                   </span>
+                )}
+                {product.discount && product.discount > 0 && product.originalPrice && (
+                  <Badge className="bg-secondary text-secondary-foreground">
+                    Tiết kiệm {formatPrice(product.originalPrice - product.price)}
+                  </Badge>
                 )}
               </div>
 
@@ -135,19 +184,23 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
                     <Plus className="h-4 w-4" />
                   </Button>
                 </div>
-                <Button className="flex-1 gap-2" size="lg">
+                <Button className="flex-1 gap-2" size="lg" onClick={handleAddToCart}>
                   <ShoppingCart className="h-5 w-5" />
                   Thêm vào giỏ hàng
                 </Button>
               </div>
 
-              {/* Actions */}
+              {/* Secondary Actions */}
               <div className="flex gap-4">
-                <Button variant="outline" className="gap-2">
-                  <Heart className="h-5 w-5" />
-                  Yêu thích
+                <Button
+                  variant="outline"
+                  className={cn("gap-2", wishlisted && "border-secondary text-secondary")}
+                  onClick={handleWishlist}
+                >
+                  <Heart className={cn("h-5 w-5", wishlisted && "fill-current text-secondary")} />
+                  {wishlisted ? "Đã yêu thích" : "Yêu thích"}
                 </Button>
-                <Button variant="outline" className="gap-2">
+                <Button variant="outline" className="gap-2" onClick={handleShare}>
                   <Share2 className="h-5 w-5" />
                   Chia sẻ
                 </Button>
@@ -155,30 +208,19 @@ export default function ProductPage({ params }: { params: Promise<{ id: string }
 
               {/* Benefits */}
               <div className="border-t border-border pt-6 space-y-3">
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Check className="h-4 w-4 text-primary" />
+                {[
+                  { icon: Check, text: "Cam kết chính hãng 100%" },
+                  { icon: Truck, text: "Giao hàng toàn quốc" },
+                  { icon: Shield, text: "Bảo hành chính hãng" },
+                  { icon: RotateCcw, text: "Đổi trả trong 7 ngày" },
+                ].map(({ icon: Icon, text }) => (
+                  <div key={text} className="flex items-center gap-3 text-sm">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                      <Icon className="h-4 w-4 text-primary" />
+                    </div>
+                    <span>{text}</span>
                   </div>
-                  <span>Cam kết chính hãng 100%</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Truck className="h-4 w-4 text-primary" />
-                  </div>
-                  <span>Giao hàng toàn quốc</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Shield className="h-4 w-4 text-primary" />
-                  </div>
-                  <span>Bảo hành chính hãng</span>
-                </div>
-                <div className="flex items-center gap-3 text-sm">
-                  <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                    <RotateCcw className="h-4 w-4 text-primary" />
-                  </div>
-                  <span>Đổi trả trong 7 ngày</span>
-                </div>
+                ))}
               </div>
             </div>
           </div>
